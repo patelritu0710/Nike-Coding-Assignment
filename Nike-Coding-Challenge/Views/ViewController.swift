@@ -52,14 +52,18 @@ class ViewController: UIViewController {
         
         setupNavigationItem()
         setupTableView()
-        
-        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
+        addActivityIndicator()
     }
     
     private func setupNavigationItem() {
         navigationItem.title = "Top Albums"
+    }
+    
+    private func addActivityIndicator() {
+        
+        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
     }
     
     private func setupTableView() {
