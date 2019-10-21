@@ -10,7 +10,7 @@ import Foundation
 
 class AlbumViewModel {
     
-    var album : Album?
+    private var album : Album?
     
     /// Make albumView as weak in order to avoid retain cycle
     
@@ -24,6 +24,10 @@ class AlbumViewModel {
     
     var count: Int {
         return album?.feed?.results.count ?? 0
+    }
+    
+    var feedResult: [FeedResult?] {
+        return album?.feed?.results ?? [FeedResult]()
     }
     
     /**

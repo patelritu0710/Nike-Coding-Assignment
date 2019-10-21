@@ -125,8 +125,8 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumTableViewCell") as? AlbumTableViewCell else { return  UITableViewCell()
         }
         
-        if viewModel?.album?.feed?.results.count ?? 0 >= indexPath.row {
-            cell.configureCell(with: viewModel?.album?.feed?.results[indexPath.row])
+        if viewModel?.feedResult.count ?? 0 >= indexPath.row {
+            cell.configureCell(with: viewModel?.feedResult[indexPath.row])
         }
         
         return cell
@@ -143,8 +143,8 @@ extension ViewController: UITableViewDelegate {
         
         let vc = DetailViewController()
         
-        if viewModel?.album?.feed?.results.count ?? 0 >= indexPath.row {
-            vc.didSelect(with: viewModel?.album?.feed?.results[indexPath.row])
+        if viewModel?.feedResult.count ?? 0 >= indexPath.row {
+            vc.didSelect(with: viewModel?.feedResult[indexPath.row])
         }
         
         navigationController?.pushViewController(vc, animated: true)
