@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.dataSource = self
-        
+        tableView.delegate = self
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: "AlbumTableViewCell")
         
         let view = UIView()
@@ -133,4 +133,26 @@ extension ViewController: UITableViewDataSource {
     }
     
     
+}
+
+//MARK:- Interface
+
+extension ViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc = DetailViewController()
+        
+        if viewModel?.album?.feed?.results.count ?? 0 >= indexPath.row {
+            vc.didSelect(with: viewModel?.album?.feed?.results[indexPath.row])
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK:- Protocol
+
+protocol AlbumViewDelegate: class {
+    func didSelect(with feedResult: FeedResult?)
 }
