@@ -33,11 +33,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel = AlbumViewModel(albumView: self)
-        
-        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        
+
         DispatchQueue.main.async {
             self.buildScreen()
         }
@@ -50,9 +46,15 @@ class ViewController: UIViewController {
     /// This builds whole screen
     
     private func buildScreen() {
+        
         view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
+        
         setupTableView()
+        
+        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
     }
     
     private func setupTableView() {
@@ -66,7 +68,7 @@ class ViewController: UIViewController {
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.dataSource = self
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: "AlbumTableViewCell")
         
         let view = UIView()
         tableView.tableFooterView = view
@@ -106,12 +108,17 @@ extension ViewController: AlbumView {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else { return  UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumTableViewCell") as? AlbumTableViewCell else { return  UITableViewCell()
+        }
+        
+        if viewModel?.album?.feed?.results.count ?? 0 >= indexPath.row {
+            cell.configureCell(with: viewModel?.album?.feed?.results[indexPath.row])
+        }
         
         return cell
     }
