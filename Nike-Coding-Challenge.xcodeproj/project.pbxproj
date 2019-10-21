@@ -15,6 +15,7 @@
 		9340E3EE235D2382003A5080 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340E3ED235D2382003A5080 /* NetworkManager.swift */; };
 		9340E3F0235D2433003A5080 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340E3EF235D2433003A5080 /* Feed.swift */; };
 		9340E3F4235D2707003A5080 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340E3F3235D2707003A5080 /* AlbumViewModel.swift */; };
+		939E95A8235D3130007D53AF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E95A7235D3130007D53AF /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9340E3ED235D2382003A5080 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9340E3EF235D2433003A5080 /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		9340E3F3235D2707003A5080 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		939E95A7235D3130007D53AF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 		9340E3EA235D2337003A5080 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				939E95A7235D3130007D53AF /* Extensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				9340E3D8235D1A4B003A5080 /* ViewController.swift in Sources */,
 				9340E3D4235D1A4B003A5080 /* AppDelegate.swift in Sources */,
 				9340E3D6235D1A4B003A5080 /* SceneDelegate.swift in Sources */,
+				939E95A8235D3130007D53AF /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

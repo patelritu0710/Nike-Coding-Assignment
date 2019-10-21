@@ -97,7 +97,7 @@ extension ViewController: AlbumView {
     /// This displays error on alertView after getting failure update from viewModel
     
     func displayErrorOnAlertView(with error: Error) {
-        
+        UIAlertController.showAlert(with: error.localizedDescription, on: self)
     }
     
 }
