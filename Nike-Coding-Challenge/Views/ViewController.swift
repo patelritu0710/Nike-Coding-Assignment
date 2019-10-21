@@ -50,11 +50,16 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
         
+        setupNavigationItem()
         setupTableView()
         
         activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
+    }
+    
+    private func setupNavigationItem() {
+        navigationItem.title = "Top Albums"
     }
     
     private func setupTableView() {
