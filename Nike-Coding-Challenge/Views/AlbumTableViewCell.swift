@@ -18,9 +18,6 @@ class AlbumTableViewCell: UITableViewCell {
     
     private let albumImageView : UIImageView = UIImageView.createImageView()
     
-    //MARK:- Instance variable
-    
-    var imageCache = NSCache<NSString, UIImage>()
     
     //MARK:- TablViewCell Methods
     
@@ -99,60 +96,7 @@ extension AlbumTableViewCell {
     func configureCell(with feedResult: FeedResult?) {
         self.albumNameLabel.text = feedResult?.name
         self.artistNameLabel.text = feedResult?.artistName
-        self.loadImage(with: feedResult?.artworkUrl100)
-    }
-    
-    /**
-     Add image on albumImage by downloading image from url
-     
-     Download image and store in cache.
-     
-     When cell is displayed again, check cache, if cache is not nil then get image from cache and avoid downloading of image from url
-     
-     - Parameter photoURL: This is the url from where image will be downloaded
-     */
-    
-    func loadImage(with photoURL: String?) {
-        
-        guard let photoURL = photoURL else {
-            setAlbumImageView(with: UIImage(named: "noImage"))
-            return
-        }
-        
-        guard let url = URL(string: photoURL) else {
-            return
-        }
-        
-        if let cachedImage = self.imageCache.object(forKey: NSString(string: photoURL)) {
-            
-            self.setAlbumImageView(with: cachedImage)
-            
-        }else {
-            
-            DispatchQueue.global().async {
-                
-                URLSession.shared.dataTask(with: url) { (data, response, error) in
-                    
-                    if let data = data {
-                        self.imageCache.setObject(UIImage(data: data) ?? UIImage(), forKey: NSString(string: photoURL))
-                        self.setAlbumImageView(with: UIImage(data: data))
-                    }
-                }.resume()
-            }
-        }
-    }
-    
-    /**
-     Set image on albumImageView
-     
-     - Parameter image: image to add on albumImageView
-     */
-    
-    func setAlbumImageView(with image: UIImage?) {
-        
-        DispatchQueue.main.async {
-            self.albumImageView.image = image
-        }
+        albumImageView.loadImage(with: feedResult?.artworkUrl100)
     }
 
 }
