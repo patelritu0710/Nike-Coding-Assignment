@@ -23,7 +23,6 @@ class ViewController: UIViewController {
     
     /**
     Initialize viewModel,
-    Initialize activityIndicator and add it in view,
     Build the screen,
     fetch albums by making network call
     
@@ -52,6 +51,8 @@ class ViewController: UIViewController {
         setupTableView()
         addActivityIndicator()
     }
+    
+    /// Add navigation title
     
     private func setupNavigationItem() {
         navigationItem.title = "Top Albums"

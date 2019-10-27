@@ -124,6 +124,8 @@ extension DetailViewController: AlbumViewDelegate {
     /**
      This method will be called when row is selected on previous viewController (ViewController).
      
+     Set all UI elements using feedResult
+     
      - Parameter feedResult: feedResult to display on UI elements
     */
     
@@ -136,8 +138,7 @@ extension DetailViewController: AlbumViewDelegate {
         artistNameLabel.text = "Artist: " + (feedResult?.artistName ?? "N/A")
         
         let genre = feedResult?.genres.first ?? Genre()
-        let str = "Genre: " + (genre?.name ?? "N/A")
-        genreLabel.text = str
+        genreLabel.text = "Genre: " + (genre?.name ?? "N/A")
         
         releaseLabel.text =  "Released: " + (feedResult?.releaseDate ?? "N/A")
         
@@ -147,6 +148,9 @@ extension DetailViewController: AlbumViewDelegate {
     }
 
 }
+
+
+//MARK:- Interface
 
 class ItunesButton: UIButton {
     var url : String?

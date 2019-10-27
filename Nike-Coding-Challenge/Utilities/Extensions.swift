@@ -93,7 +93,7 @@ extension UIImageView {
     }
     
      /**
-      Add image on albumImageView by downloading image from url
+      Add image on ImageView by downloading image from url
       
       Download image and store in cache.
       
@@ -105,7 +105,7 @@ extension UIImageView {
      func loadImage(with photoURL: String?) {
          
          guard let photoURL = photoURL else {
-             setAlbumImageView(with: UIImage(named: "noImage"))
+             setImageView(with: UIImage(named: "noImage"))
              return
          }
          
@@ -115,7 +115,7 @@ extension UIImageView {
          
          if let cachedImage = imageCache.object(forKey: NSString(string: photoURL)) {
              
-             self.setAlbumImageView(with: cachedImage)
+             self.setImageView(with: cachedImage)
              
          }else {
              
@@ -125,7 +125,7 @@ extension UIImageView {
                      
                      if let data = data {
                          imageCache.setObject(UIImage(data: data) ?? UIImage(), forKey: NSString(string: photoURL))
-                         self.setAlbumImageView(with: UIImage(data: data))
+                         self.setImageView(with: UIImage(data: data))
                      }
                  }.resume()
              }
@@ -133,12 +133,12 @@ extension UIImageView {
      }
     
     /**
-     Set image on albumImageView
+     Set image on ImageView
      
-     - Parameter image: image to add on albumImageView
+     - Parameter image: image to add on ImageView
      */
     
-    func setAlbumImageView(with image: UIImage?) {
+    func setImageView(with image: UIImage?) {
         
         DispatchQueue.main.async {
             self.image = image
