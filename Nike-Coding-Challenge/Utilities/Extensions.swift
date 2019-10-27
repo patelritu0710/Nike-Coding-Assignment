@@ -14,10 +14,8 @@ extension UIAlertController {
         let alert = UIAlertController(title: "Some Error!!!", message: message, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        
-        DispatchQueue.main.async {
-            on.present(alert, animated: true)
-        }
+
+        on.present(alert, animated: true)
     }
 }
 

@@ -34,9 +34,7 @@ class ViewController: UIViewController {
         
         viewModel = AlbumViewModel(albumView: self)
 
-        DispatchQueue.main.async {
-            self.buildScreen()
-        }
+        self.buildScreen()
         
         fetchAblums()
     }
@@ -59,12 +57,16 @@ class ViewController: UIViewController {
         navigationItem.title = "Top Albums"
     }
     
+    /// Add activity indicator
+     
     private func addActivityIndicator() {
         
         activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
     }
+    
+    /// Setup TableView with cell, constraints, add dataSource and delegate
     
     private func setupTableView() {
         
@@ -85,9 +87,7 @@ class ViewController: UIViewController {
     
     private func fetchAblums() {
         
-        DispatchQueue.main.async {
-            self.activityIndicator.startAnimating()
-        }
+        self.activityIndicator.startAnimating()
         viewModel?.fetchAlbums()
     }
 }
@@ -97,16 +97,17 @@ extension ViewController: AlbumView {
     /// This updates the tableview after getting success update from ViewModel
     
     func insertRowsInTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.activityIndicator.stopAnimating()
-        }
+        
+        self.tableView.reloadData()
+        self.activityIndicator.stopAnimating()
     }
     
     /// This displays error on alertView after getting failure update from viewModel
     
     func displayErrorOnAlertView(with error: Error) {
+        
         UIAlertController.showAlert(with: error.localizedDescription, on: self)
+        activityIndicator.stopAnimating()
     }
     
 }

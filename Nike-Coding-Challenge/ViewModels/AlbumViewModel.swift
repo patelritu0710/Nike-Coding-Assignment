@@ -51,13 +51,10 @@ class AlbumViewModel {
                 self.albumView?.displayErrorOnAlertView(with:error)
                 
             } else{
-                
-                DispatchQueue.main.async {
                     
-                    self.album = result ?? Album()
+                self.album = result ?? Album()
                     
-                    self.albumView?.insertRowsInTableView()
-                }
+                self.albumView?.insertRowsInTableView()
             }
         }
     }

@@ -47,7 +47,7 @@ class NetworkManager {
         }
     }
     
-    /// Generic method for making service call of response model [T?], once it receives response, serialize the json and pass it using completionHandler
+    /// Generic method for making service call of response model T?, once it receives response, serialize the json and pass it using completionHandler
     
     func fetchData<T:Codable>(WithUrl url: URL, objectType: T.Type, completionHandler: @escaping (T?, Error?) -> ()) {
         
