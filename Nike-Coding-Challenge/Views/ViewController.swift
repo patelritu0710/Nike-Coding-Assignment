@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     
     private func addActivityIndicator() {
         
-        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
     }
