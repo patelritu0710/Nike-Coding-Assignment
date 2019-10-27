@@ -10,60 +10,59 @@ import UIKit
 
 class AlbumTableViewCell: UITableViewCell {
 
-    //MARK: Labels
+    //MARK:- UI Elements
     
-    private let albumNameLabel : UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = .black
-        lbl.font = UIFont.boldSystemFont(ofSize: 17)
-        lbl.numberOfLines = 0
-        lbl.textAlignment = .left
-        return lbl
-    }()
+    private let albumNameLabel : UILabel = UILabel.createBoldLabel()
     
-    private let artistNameLabel : UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = .gray
-        lbl.font = UIFont.systemFont(ofSize: 15)
-        lbl.textAlignment = .left
-        lbl.numberOfLines = 0
-        return lbl
-    }()
+    private let artistNameLabel : UILabel = UILabel.createLabel()
     
-    private let albumImageView : UIImageView = {
-        let imgView = UIImageView(image: UIImage(named: ""))
-        imgView.contentMode = .scaleAspectFit
-        imgView.clipsToBounds = true
-        return imgView
-    }()
+    private let albumImageView : UIImageView = UIImageView.createImageView()
     
-    //MARK: Instance variable
+    //MARK:- Instance variable
     
     var imageCache = NSCache<NSString, UIImage>()
     
-    //MARK: TablViewCell Methods
+    //MARK:- TablViewCell Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(albumImageView)
-        addSubview(albumNameLabel)
-        addSubview(artistNameLabel)
         
-        albumImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 90, height: 0, enableInsets: false)
+        // albumImageView constraints
         
-        albumNameLabel.anchor(top: topAnchor, left: albumImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 30, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 0, enableInsets: false)
+        NSLayoutConstraint(item: albumImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0).isActive = true
         
-        artistNameLabel.anchor(top: albumNameLabel.bottomAnchor, left: albumImageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 0, enableInsets: false)
+        albumImageView.anchor(top: nil, left: leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 90, height: 90, enableInsets: false)
+        
+        NSLayoutConstraint(item: albumImageView, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self, attribute: .top, multiplier: 1.0, constant: 5).isActive = true
+        
+        NSLayoutConstraint(item: albumImageView, attribute: .bottom, relatedBy: .lessThanOrEqual, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -5.0).isActive = true
         
         
-        let stackView = UIStackView()
-        stackView.distribution = .equalSpacing
-        stackView.axis = .horizontal
-        stackView.spacing = 5
-        addSubview(stackView)
-        stackView.anchor(top: topAnchor, left: albumNameLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 5, paddingBottom: 15, paddingRight: 10, width: 0, height: 70, enableInsets: false)
+        // Created view to add two labels inside it
+        
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        view.addSubview(albumNameLabel)
+        view.addSubview(artistNameLabel)
+        
+        albumNameLabel.textAlignment = .left
+        artistNameLabel.textAlignment = .left
+        
+        // Constraints for view and labels
+        
+        NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self, attribute: .top, multiplier: 1.0, constant: 5.0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .lessThanOrEqual, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -5.0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .leading, relatedBy: .equal, toItem: albumImageView, attribute: .trailing, multiplier: 1.0, constant: 10.0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 5.0).isActive = true
+        
+        albumNameLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
+
+        artistNameLabel.anchor(top: albumNameLabel.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
     
     }
     
@@ -81,9 +80,13 @@ class AlbumTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        albumImageView.image = nil
+    }
 }
 
-//MARK: Interface
+//MARK:- Interface
 
 extension AlbumTableViewCell {
     
@@ -94,11 +97,9 @@ extension AlbumTableViewCell {
     */
     
     func configureCell(with feedResult: FeedResult?) {
-        DispatchQueue.main.async {
-            self.albumNameLabel.text = feedResult?.name
-            self.artistNameLabel.text = feedResult?.artistName
-            self.loadImage(with: feedResult?.artworkUrl100)
-        }
+        self.albumNameLabel.text = feedResult?.name
+        self.artistNameLabel.text = feedResult?.artistName
+        self.loadImage(with: feedResult?.artworkUrl100)
     }
     
     /**
@@ -114,6 +115,7 @@ extension AlbumTableViewCell {
     func loadImage(with photoURL: String?) {
         
         guard let photoURL = photoURL else {
+            setAlbumImageView(with: UIImage(named: "noImage"))
             return
         }
         
@@ -135,7 +137,7 @@ extension AlbumTableViewCell {
                         self.imageCache.setObject(UIImage(data: data) ?? UIImage(), forKey: NSString(string: photoURL))
                         self.setAlbumImageView(with: UIImage(data: data))
                     }
-                    }.resume()
+                }.resume()
             }
         }
     }
