@@ -22,6 +22,7 @@ struct FeedResult: Codable {
     
     var artistName: String?
     var name: String?
+    var artistUrl: String?
     var artworkUrl100: String?
     var releaseDate: String?
     var copyright: String?

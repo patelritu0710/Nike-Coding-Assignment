@@ -56,3 +56,39 @@ extension UIView {
          }
      }
 }
+
+extension UILabel {
+    
+    static func createLabel() -> UILabel {
+        
+        let lbl = UILabel()
+        lbl.textColor = .gray
+        lbl.font = UIFont.systemFont(ofSize: 15)
+        lbl.textAlignment = .center
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
+        return lbl
+    }
+    
+    static func createBoldLabel() -> UILabel {
+       
+        let lbl = UILabel()
+        lbl.textColor = .black
+        lbl.font = UIFont.boldSystemFont(ofSize: 17)
+        lbl.numberOfLines = 0
+        lbl.textAlignment = .center
+        return lbl
+        
+    }
+}
+
+extension UIImageView {
+    
+    static func createImageView() -> UIImageView {
+        
+        let imgView = UIImageView(image: nil)
+        imgView.contentMode = .scaleAspectFit
+        imgView.clipsToBounds = true
+        return imgView
+    }
+}
