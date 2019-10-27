@@ -98,8 +98,10 @@ class DetailViewController: UIViewController  {
     //MARK:- Action
     
     /**
-    This will called when user taps on Music button
-    
+     This will called when user taps on iTunes Store button
+     
+     By clicking on button, user will be redirected to iTunes Store music with respective artist data
+     
     - Parameter sender: sender which is tapped
     */
     
