@@ -82,6 +82,8 @@ extension UILabel {
     }
 }
 
+private var imageCache = NSCache<NSString, UIImage>()
+
 extension UIImageView {
     
     static func createImageView() -> UIImageView {
@@ -90,5 +92,58 @@ extension UIImageView {
         imgView.contentMode = .scaleAspectFit
         imgView.clipsToBounds = true
         return imgView
+    }
+    
+     /**
+      Add image on albumImageView by downloading image from url
+      
+      Download image and store in cache.
+      
+      Check cache, if cache is not nil then get image from cache and avoid downloading of image from url
+      
+      - Parameter photoURL: This is the url from where image will be downloaded
+      */
+     
+     func loadImage(with photoURL: String?) {
+         
+         guard let photoURL = photoURL else {
+             setAlbumImageView(with: UIImage(named: "noImage"))
+             return
+         }
+         
+         guard let url = URL(string: photoURL) else {
+             return
+         }
+         
+         if let cachedImage = imageCache.object(forKey: NSString(string: photoURL)) {
+             
+             self.setAlbumImageView(with: cachedImage)
+             
+         }else {
+             
+             DispatchQueue.global().async {
+                 
+                 URLSession.shared.dataTask(with: url) { (data, response, error) in
+                     
+                     if let data = data {
+                         imageCache.setObject(UIImage(data: data) ?? UIImage(), forKey: NSString(string: photoURL))
+                         self.setAlbumImageView(with: UIImage(data: data))
+                     }
+                 }.resume()
+             }
+         }
+     }
+    
+    /**
+     Set image on albumImageView
+     
+     - Parameter image: image to add on albumImageView
+     */
+    
+    func setAlbumImageView(with image: UIImage?) {
+        
+        DispatchQueue.main.async {
+            self.image = image
+        }
     }
 }
