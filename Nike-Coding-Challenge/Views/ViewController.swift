@@ -69,14 +69,12 @@ class ViewController: UIViewController {
     private func setupTableView() {
         
         view.addSubview(tableView)
+  
+        tableView.anchor(top: safeArea.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0, enableInsets: false)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.dataSource = self
         tableView.delegate = self
+        
         tableView.register(AlbumTableViewCell.self, forCellReuseIdentifier: "AlbumTableViewCell")
         
         let view = UIView()
